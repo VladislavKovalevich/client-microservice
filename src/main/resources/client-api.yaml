@@ -1,0 +1,73 @@
+openapi: 3.0.0
+
+info:
+  title: ELibrary client microservice
+  description: Functionality related to client
+  version: 1.0.0
+
+servers:
+  - url: 'https://localhost:8080/client-microservice'
+
+tags:
+  - name: General info
+    description: general info
+
+  - name: Account operations
+    description: Account operations
+
+  - name: Registration endpoints
+    description: Registration endpoints
+
+paths:
+
+  /client/infoById:
+    get:
+      tags:
+        - General info
+      summary: Get user info by ID
+      description: Get user info by ID
+      operationId: infoById
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientInfoDto'
+              example: OK
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Wrong data format
+        '404':
+          description: Not found
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: User with this ID was not found
+        '500':
+          description: Internal server error
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Server error
+
+components:
+  schemas:
+    ClientInfoDto:
+      required:
+        - uuid
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 7cced329-fb37-4d35-b9b6-cf12a0ad4f3e
+        name:
+          type: string
+          example: Ivan
+
